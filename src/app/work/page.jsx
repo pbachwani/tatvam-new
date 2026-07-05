@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
+
 import {
   AnimatePresence,
   motion,
@@ -10,94 +10,13 @@ import {
   useSpring,
 } from "motion/react";
 
-const projects = [
-  {
-    id: 1,
-    name: "Project 1",
-    image: "/1.webp",
-    slug: "/p1",
-    draw: "/animated.svg",
-  },
-  {
-    id: 2,
-    name: "Project 2",
-    image: "/2.jpg",
-    slug: "/p2",
-    draw: "/illustration1.png",
-  },
-  {
-    id: 3,
-    name: "Project 3",
-    image: "/3.webp",
-    slug: "/p3",
-    draw: "/animated2.svg",
-  },
-  {
-    id: 4,
-    name: "Project 4",
-    image: "/1.webp",
-    slug: "/p4",
-    draw: "/illustration1.png",
-  },
-  {
-    id: 5,
-    name: "Project 5",
-    image: "/2.jpg",
-    slug: "/p5",
-    draw: "/animated.svg",
-  },
-  {
-    id: 6,
-    name: "Project 6",
-    image: "/3.webp",
-    slug: "/p6",
-    draw: "/illustration1.png",
-  },
-  {
-    id: 7,
-    name: "Project 7",
-    image: "/1.webp",
-    slug: "/p7",
-    draw: "/animated.svg",
-  },
-  {
-    id: 8,
-    name: "Project 8",
-    image: "/2.jpg",
-    slug: "/p8",
-    draw: "/illustration1.png",
-  },
-  {
-    id: 9,
-    name: "Project 9",
-    image: "/3.webp",
-    slug: "/p9",
-    draw: "/illustration1.png",
-  },
-  {
-    id: 10,
-    name: "Project 10",
-    image: "/1.webp",
-    slug: "/p10",
-    draw: "/illustration1.png",
-  },
-  {
-    id: 11,
-    name: "Project 11",
-    image: "/2.jpg",
-    slug: "/p11",
-    draw: "/animated.svg",
-  },
-  {
-    id: 12,
-    name: "Project 12",
-    image: "/3.webp",
-    slug: "/p12",
-    draw: "/illustration1.png",
-  },
-];
+import { projects } from "../constants/projects";
+import { useRevealer } from "@/hooks/useRevealer";
+
+import DecryptedText from "@/components/ui/DecryptedText";
 
 export default function WorkPage() {
+  useRevealer();
   const trackRef = useRef(null);
   const [hoveredProject, setHoveredProject] = useState(null);
 
@@ -135,52 +54,105 @@ export default function WorkPage() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => {
-    console.log("Hovered project:", hoveredProject);
-  }, [hoveredProject]);
-
   return (
     <>
+      <div className="revealer"></div>
       {/* Scroll distance — adjust multiplier to taste */}
-      <div style={{ height: `${projects.length * 40 + 100}vh` }} />
+      <div style={{ height: `${projects.length * 50 + 100}vh` }} />
 
       <div className="fixed inset-0 overflow-hidden">
         <div
           ref={trackRef}
-          className="absolute bottom-0 flex items-end mb-20 will-change-transform gap-4 md:px-16 px-4 pb-12"
+          className="absolute bottom-0 flex items-end mb-10 will-change-transform gap-4 md:px-16 px-4"
         >
           {projects.map((project) => (
             <Link
               key={project.id}
-              href={project.slug}
+              href={`/work/${project.id}`}
               className="shrink-0 flex flex-col z-10"
+              onMouseEnter={() => setHoveredProject(project.id)}
+              onMouseLeave={() => setHoveredProject(null)}
+              onTouchStart={() => setHoveredProject(project.id)}
+              onTouchEnd={() => setHoveredProject(null)}
             >
-              <div className="relative md:w-96 w-60 hover:scale-90 transition-transform duration-300 ease-out">
+              <div className="relative lg:w-100 w-60 scale-95 hover:scale-100 transition-transform duration-700 ease-out shadow-2xl overflow-hidden">
                 <img
-                  src={project.image}
+                  src={project.cover}
                   alt={project.name}
-                  className="object-cover transition-transform duration-300 ease-out hover:scale-110"
-                  onMouseEnter={() => setHoveredProject(project.id)}
-                  onMouseLeave={() => setHoveredProject(null)}
+                  className={`object-cover transition-transform duration-500 ease-out scale-110 hover:scale-100`}
                 />
               </div>
 
-              <div className="flex justify-between items-baseline pt-2.5 w-full">
-                <span className="font-serif text-xs text-[#1a1a1a]">नाम</span>
-                <span className="font-serif text-xs text-[#1a1a1a]">
+              <div className="flex justify-between items-baseline pt-2.5 w-full px-4">
+                <span className="text-xs md:text-xl text-[#1a1a1a] font-deva">
+                  नाम
+                </span>
+                <span className="font-serif text-xs md:text-xl text-[#1a1a1a]">
                   {project.name}
                 </span>
               </div>
             </Link>
           ))}
-          <div className="w-40 md:w-60 h-80 border flex justify-center items-center mb-6">
+          {/* <div className="w-40 md:w-60 h-80 border flex justify-center items-center mb-6">
             more projects coming soon
-          </div>
-          {/* <div className="shrink-0 md:w-8 w-4" /> */}
+          </div> */}
         </div>
       </div>
 
-      {/* {hoveredProject && (
+      {/* overlays sketech and footnote */}
+      <AnimatePresence mode="wait">
+        {hoveredProject && (
+          <>
+            <motion.div
+              key="overlay"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="fixed w-72 h-72 z-50 pointer-events-none brightness-150"
+              style={{
+                x: smoothX,
+                y: smoothY,
+                left: 0,
+                top: 0,
+                translateX: "-50%", // centers horizontally
+                translateY: "-100%", // positions above cursor
+              }}
+            >
+              <img
+                src={projects.find((p) => p.id === hoveredProject)?.draw}
+                alt=""
+                className="w-full h-full object-contain"
+              />
+            </motion.div>
+
+            <motion.div
+              key="text"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.1 }}
+              className="fixed w-full h-fit top-20 left-0 -z-10 justify-start"
+            >
+              <div className="md:max-w-4xl w-fit text-justify font-andale text-wrap flex flex-wrap px-4 md:px-10">
+                <DecryptedText
+                  maxIterations={10}
+                  animateOn="view"
+                  text={
+                    projects.find((p) => p.id === hoveredProject)?.foot ||
+                    "lorem ipsum dolor sit amet consectetur adipisicing elit."
+                  }
+                />
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}
+
+/* {hoveredProject && (
         <AnimatePresence mode="wait">
           <motion.div
             key="overlay"
@@ -219,49 +191,4 @@ export default function WorkPage() {
             </div>
           </motion.div>
         </AnimatePresence>
-      )} */}
-
-      <AnimatePresence mode="wait">
-        {hoveredProject && (
-          <>
-            <motion.div
-              key="overlay"
-              style={{
-                x: smoothX,
-                y: smoothY,
-                translateX: "-50%",
-                translateY: "-120%",
-              }}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              transition={{ duration: 0.3, ease: "easeOut" }} // slightly faster feels better
-              className="fixed w-72 h-72 z-20 pointer-events-none brightness-150"
-            >
-              <img
-                src={projects.find((p) => p.id === hoveredProject)?.draw}
-                alt=""
-                className="w-full h-full object-contain"
-              />
-            </motion.div>
-
-            <motion.div
-              key="text"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="fixed w-full h-fit bottom-4 z-10 flex justify-center items-center"
-            >
-              <div className="max-w-2xl text-center">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Harum,
-                ullam. Qui, officia dolorem nobis ipsa maiores corrupti neque,
-                quidem at quas quis, fugiat sit expedita.
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
-    </>
-  );
-}
+      )} */

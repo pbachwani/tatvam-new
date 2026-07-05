@@ -3,6 +3,23 @@
 :root {
   --background: #f2f2f2;
   --foreground: #171717;
+  --fg: #0a0a0a;
+}
+
+@font-face {
+  font-family: "Andale Mono";
+  src: url("/fonts/andalemono.ttf") format("truetype");
+  font-weight: 100 300 500 800 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Devanagari";
+  src: url("/fonts/DevanagariMT.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
 @theme inline {
@@ -10,6 +27,8 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-andale: "Andale Mono";
+  --font-deva: "Devanagari";
 }
 
 body {
@@ -17,3 +36,44 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* transition css */
+
+.revealer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100svh;
+  transform-origin: center top;
+  /* background-color: #AB5F4E; */
+  pointer-events: none;
+  z-index: 99999;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none !important;
+}
+
+::view-transition-group(root) {
+  z-index: auto !important;
+}
+
+::view-transition-image-pair(root) {
+  isolation: isolate;
+  will-change: clip-path;
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 10000;
+  animation: none !important;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+  animation: none !important;
+}
+
+/* transition css end */

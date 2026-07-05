@@ -3,7 +3,7 @@ export const projects = [
     id: "adigami",
     name: "Adigami",
     naam: "",
-    breif:
+    brief:
       "Jaipan, a name born of Jaipur and Japan, signifies the meeting of two distant worlds. It is a studio where cultures converge, folding intricacy and simplicity into one soul, and where the spirit of origami becomes architecture itself.",
     description: [
       "Jaipan is born at the intersection of two cultures: Jaipur, a city of colour, craft, and intricacy, and Japan, a land of origami, minimalism, and meditation. Conceived as a studio for an origami artist, it becomes a spatial dialogue where maximalism and minimalism, detail and restraint, find balance.",
@@ -13,11 +13,12 @@ export const projects = [
     ],
     foot: "Jaipan is more than a studio; it is an architectural fold - Jaipur and Japan, intricacy and minimalism, merging into one continuous gesture.",
     location: "",
-    cover: "/projects/adigami/1.jpg",
-    area: "",
+    cover: "/projects/adigami/10.jpg",
+    area: "825sq",
     ongoing: true,
     date: "",
     extra: "",
+    draw: "/illustration1.png",
     images: [
       "/projects/adigami/1.jpg",
       "/projects/adigami/2.jpg",
@@ -40,7 +41,7 @@ export const projects = [
     id: "aikyam",
     name: "Aikyam",
     naam: "",
-    breif:
+    brief:
       "Aikyam - meaning oneness - captures the quiet harmony where soul, science, and spatial clarity come together. It is where every architectural choice, from structure to surface, belongs to a larger ecosystem - unified, grounded, and intentional.",
     description: [
       "AIKYAM is an inward-looking residence designed for a retired army couple - seasoned by movement, now longing for stillness. After a life of travel, change, and social engagement, they sought a space that turns away from the outside and returns to the self. The result is a home that breathes from its core - a central courtyard that anchors not just the plan, but the philosophy of living.",
@@ -49,11 +50,12 @@ export const projects = [
     ],
     foot: "In AIKYAM, the couple's story is the context. The architecture only listens - and then, lovingly responds. A home not just built, but felt. ",
     location: "",
-    cover: "/projects/aikyam/1.jpg",
-    area: "",
+    cover: "/projects/aikyam/140.jpg",
+    area: "6,580sq",
     ongoing: true,
     date: "",
     extra: "",
+    draw: "/illustration1.png",
     images: [
       "/projects/aikyam/1.jpg",
       "/projects/aikyam/2.jpg",
@@ -76,7 +78,7 @@ export const projects = [
     id: "buffer",
     name: "Buffer",
     naam: "",
-    breif:
+    brief:
       "Samanvay signifies balance, coming together, a quiet alignment of many energies into one rhythm. Conceived as a coworking space, the project reimagines work not as a rigid routine, but as a more human experience - where collaboration, calmness, individuality, and community coexist in harmony.",
     description: [
       "The palette is grounded in earthy reds, warm neutrals, natural wood, and woven cane, creating an atmosphere that feels calm, welcoming, and deeply rooted. Custom-designed furniture with sculptural wooden forms, handcrafted details, and cane weaving introduces a tactile richness, while carefully placed indoor greens soften the interiors and strengthen the connection with nature.",
@@ -85,11 +87,12 @@ export const projects = [
     ],
     foot: "Samanvay is an exploration of how thoughtful design can bring together people, craft, culture, and work - creating a space that feels both purposeful and profoundly human.",
     location: "",
-    cover: "/projects/buffer/1.jpg",
+    cover: "/projects/buffer/10.jpg",
     area: "",
     ongoing: true,
     date: "",
     extra: "",
+    draw: "/illustration1.png",
     images: [
       "/projects/buffer/1.jpg",
       "/projects/buffer/2.jpg",
@@ -112,14 +115,15 @@ export const projects = [
     id: "casa-v2",
     name: "Casa-v2",
     naam: "",
-    breif: "",
+    brief: "",
     description: "",
     location: "",
-    cover: "/projects/casa-v2/1.jpg",
+    cover: "/projects/casa-v2/7.jpg",
     area: "",
     ongoing: true,
     date: "",
     extra: "",
+    draw: "/illustration1.png",
     images: [
       "/projects/casa-v2/1.jpg",
       "/projects/casa-v2/2.jpg",
@@ -142,7 +146,7 @@ export const projects = [
     id: "chaisa",
     name: "Chaisa",
     naam: "",
-    breif:
+    brief:
       "Darpan, meaning mirror, speaks of seeing and being seen, of holding an image yet transforming it. This project mirrors Jaipur's spirit - its heritage, its contrasts, its quiet eccentricities - while offering back a new reflection. It is not imitation, but resonance; not a copy, but a conscious echo of the city it belongs to.",
     description: [
       "Situated on Chaura Rasta - a street that holds the memory of eras from Mughal grandeur to British imprints and Art Deco modernity - the project becomes an echo of the city's layered character.",
@@ -152,11 +156,12 @@ export const projects = [
     ],
     foot: "Darpan is thus both mirror and mediator - bridging past and present, modesty and boldness, heritage and play - capturing Jaipur's spirit in every step, window, and wall.",
     location: "",
-    cover: "/projects/chaisa/1.jpg",
-    area: "",
+    cover: "/projects/chaisa/17.jpg",
+    area: "650sq",
     ongoing: true,
     date: "",
     extra: "",
+    draw: "/illustration1.png",
     images: [
       "/projects/chaisa/1.jpg",
       "/projects/chaisa/2.jpg",
@@ -179,7 +184,7 @@ export const projects = [
     id: "goa",
     name: "Goa",
     naam: "",
-    breif:
+    brief:
       "Spandan means a pulse, a vibration, a quiet movement that signifies life. The concept emerged from the meeting of two forces - geometry and nature - where forms respond to climate, land, and emotion rather than rigid rules. Spandan is about flow: of wind, light, water, and human experience, shaped into architecture that feels alive rather than imposed.",
     description: [
       "Located along the untouched coastline of Redi Beach, Maharashtra, Spandan began with deep observation. Before design took form, the site was studied - its sun path, humidity, wind direction, rainfall patterns, and terrain. This understanding shaped every architectural decision, allowing the structure to belong to its environment rather than dominate it.",
@@ -189,11 +194,12 @@ export const projects = [
     ],
     foot: "More than a resort, Spandan represents a personal and professional evolution - where new climates, cultures, materials, and ways of living came together. It stands as a reminder that architecture is not just built on land, but shaped by listening to it.",
     location: "",
-    cover: "/projects/goa/1.jpg",
-    area: "",
+    cover: "/projects/goa/2.jpg",
+    area: "6Acre",
     ongoing: true,
     date: "",
     extra: "",
+    draw: "/illustration1.png",
     images: [
       "/projects/goa/1.jpg",
       "/projects/goa/2.jpg",
@@ -208,7 +214,7 @@ export const projects = [
     id: "oat",
     name: "Oat",
     naam: "",
-    breif:
+    brief:
       "Oat - drawn from the Hindi word for veil or ghoonghat - embodies the idea of shelter, modesty, and quiet strength. In this residence, Oat becomes more than a name - it becomes a lens through which space, light, and privacy are reimagined. The architectural screen is not just a visual motif; it is a philosophical gesture, balancing protection and permeability in a dense urban setting.",
     description: [
       "The residence reimagines urban living through the lens of shelter, modesty, and quiet strength. Situated on a compact site flanked by buildings on three sides and a bustling street in front, this residence filters its surroundings with precision rather than shutting them out.",
@@ -217,11 +223,12 @@ export const projects = [
     ],
     foot: "Oat is not just a residence; it's an architectural response to urban density - quiet, porous, and poetic in its restraint",
     location: "",
-    cover: "/projects/oat/1.jpg",
-    area: "",
+    cover: "/projects/oat/13.jpg",
+    area: "5,500sq",
     ongoing: true,
     date: "",
     extra: "",
+    draw: "/illustration1.png",
     images: [
       "/projects/oat/1.jpg",
       "/projects/oat/2.jpg",
@@ -244,14 +251,15 @@ export const projects = [
     id: "ranthambore",
     name: "Ranthambore",
     naam: "",
-    breif: "",
+    brief: "",
     description: "",
     location: "",
-    cover: "/projects/ranthambore/1.jpg",
+    cover: "/projects/ranthambore/6-new.png",
     area: "",
     ongoing: true,
     date: "",
     extra: "",
+    draw: "/illustration1.png",
     images: [
       "/projects/ranthambore/1.jpg",
       "/projects/ranthambore/2.jpg",
@@ -274,14 +282,15 @@ export const projects = [
     id: "surbhi-farm",
     name: "Surbhi Farm",
     naam: "",
-    breif: "",
+    brief: "",
     description: "",
     location: "",
-    cover: "/projects/surbhi-farm/1.jpg",
+    cover: "/projects/surbhi-farm/8.jpg",
     area: "",
     ongoing: true,
     date: "",
     extra: "",
+    draw: "/illustration1.png",
     images: [
       "/projects/surbhi-farm/1.jpg",
       "/projects/surbhi-farm/2.jpg",
@@ -304,7 +313,7 @@ export const projects = [
     id: "tatvam-vas",
     name: "Tatvam Vas",
     naam: "",
-    breif:
+    brief:
       "Tatvam Vas - drawn from the Sanskrit phrase “You are that” - is a quiet assertion of oneness with nature. It is a retreat rooted in stillness, where architecture doesn't impose, but listens — to the land, the light, and the air.",
     description: [
       "Set amidst the arid landscapes of Achrol, Rajasthan, Tatvam Vas is a 6,500 sq ft residence conceived as a living expression of sustainable design. Built on a site once slated for sale, it instead became a canvas for a regenerative home - one that treads lightly yet lives fully.",
@@ -314,10 +323,11 @@ export const projects = [
     foot: "At Tatvam Vas, sustainability isn't applied - it is inherent. A home that lives in dialogue with its environment, and with those who dwell within it.",
     location: "",
     cover: "/projects/tatvam-vas/1.jpg",
-    area: "",
+    area: "6,500 sq",
     ongoing: true,
     date: "",
     extra: "",
+    draw: "/illustration1.png",
     images: [
       "/projects/tatvam-vas/1.jpg",
       "/projects/tatvam-vas/2.jpg",
@@ -340,14 +350,15 @@ export const projects = [
     id: "toto",
     name: "Toto",
     naam: "",
-    breif: "",
+    brief: "",
     description: "",
     location: "",
-    cover: "/projects/toto/1.jpg",
+    cover: "/projects/toto/18.jpg",
     area: "",
     ongoing: true,
     date: "",
     extra: "",
+    draw: "/illustration1.png",
     images: [
       "/projects/toto/1.jpg",
       "/projects/toto/2.jpg",
