@@ -18,7 +18,7 @@ export default async function ProjectPage({ params }) {
 
   return (
     <ProjectReveal>
-      <div className="w-full bg-white">
+      <div className="w-full bg-white h-full ">
         <ProjectHero project={project} />
         <ProjectDetails project={project} />
       </div>

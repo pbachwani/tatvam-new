@@ -5,7 +5,7 @@ import React from "react";
 const ProjectHero = ({ project }) => {
   return (
     <>
-      <div className="w-full h-[200svh] overflow-hidden bg-black">
+      <div className="w-full min-h-[200svh] overflow-hidden bg-black">
         <img
           src={project.cover}
           alt={project.name}
