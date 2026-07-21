@@ -17,6 +17,7 @@ import DecryptedText from "@/components/ui/DecryptedText";
 
 export default function WorkPage() {
   useRevealer();
+
   const trackRef = useRef(null);
   const [hoveredProject, setHoveredProject] = useState(null);
 
@@ -54,6 +55,10 @@ export default function WorkPage() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    window.dispatchEvent(new Event("resize"));
+  }, []);
+
   return (
     <>
       <div className="revealer"></div>
@@ -75,11 +80,11 @@ export default function WorkPage() {
               onTouchStart={() => setHoveredProject(project.id)}
               onTouchEnd={() => setHoveredProject(null)}
             >
-              <div className="relative lg:w-100 w-60 scale-95 hover:scale-100 transition-transform duration-700 ease-out shadow-2xl overflow-hidden">
+              <div className="relative lg:w-120 w-60 scale-95 hover:scale-100 transition-transform duration-700 ease-out shadow-2xl overflow-hidden">
                 <img
                   src={project.cover}
                   alt={project.name}
-                  className={`object-cover transition-transform duration-500 ease-out scale-110 hover:scale-100`}
+                  className={`object-cover transition-all duration-500 ease-out scale-110 hover:scale-100 hover:brightness-75`}
                 />
               </div>
 
@@ -100,21 +105,34 @@ export default function WorkPage() {
       </div>
 
       {/* overlays sketech and footnote */}
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode="popLayout">
         {hoveredProject && (
           <>
             <motion.div
               key="overlay"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8 }}
+              initial={{
+                opacity: 0,
+                backgroundColor: "#ab5f4e",
+                scale: 0.8,
+              }}
+              animate={{
+                opacity: 1,
+                backgroundColor: "none",
+                transition: { duration: 1.5 },
+                scale: 1,
+              }}
+              exit={{
+                opacity: 0,
+                scale: 0.8,
+                transition: { duration: 0.2 },
+              }}
               transition={{ duration: 0.3, ease: "easeOut" }}
-              className="fixed w-72 h-72 z-50 pointer-events-none brightness-150"
+              className="fixed w-72 h-72 z-50 pointer-events-none"
               style={{
                 x: smoothX,
                 y: smoothY,
                 left: 0,
-                top: 0,
+                top: 50,
                 translateX: "-50%", // centers horizontally
                 translateY: "-100%", // positions above cursor
               }}
@@ -128,13 +146,20 @@ export default function WorkPage() {
 
             <motion.div
               key="text"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.1 }}
+              initial={{ opacity: 1, color: "#ab5f4e" }}
+              animate={{
+                opacity: 1,
+                color: "#000000",
+                transition: { duration: 1.5 },
+              }}
+              exit={{
+                opacity: 0,
+                transition: { duration: 0.2 },
+              }}
+              transition={{ duration: 0.5 }}
               className="fixed w-full h-fit top-20 left-0 -z-10 justify-start"
             >
-              <div className="md:max-w-4xl w-fit text-justify font-andale text-wrap flex flex-wrap px-4 md:px-10">
+              <div className="md:max-w-4xl w-fit text-justify font-andale text-wrap flex flex-wrap px-4 md:px-10 font-bold ">
                 <DecryptedText
                   maxIterations={10}
                   animateOn="view"

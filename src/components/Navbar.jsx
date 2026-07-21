@@ -64,13 +64,19 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="w-full h-fit flex justify-between items-center fixed top-0 inset-0 px-8 py-4 z-50 mx-auto backdrop-blur-sm">
-      <Link href="/" onClick={handleNavigation("/")}>
+    <nav className="w-full h-fit flex justify-between items-center fixed top-0 inset-0 px-8 py-4 z-50 mx-auto group ">
+      <div className="pointer-events-none absolute inset-0 -z-10">
+        <div className="absolute inset-0 backdrop-blur-[4px] [mask-image:linear-gradient(to_bottom,black_0%,transparent_100%)]" />
+        <div className="absolute inset-0 backdrop-blur-[8px] [mask-image:linear-gradient(to_bottom,black_0%,transparent_75%)]" />
+        <div className="absolute inset-0 backdrop-blur-[16px] [mask-image:linear-gradient(to_bottom,black_0%,transparent_50%)]" />
+        <div className="absolute inset-0 backdrop-blur-[20px] [mask-image:linear-gradient(to_bottom,black_0%,transparent_25%)]" />
+      </div>
+      <Link href="/" onClick={handleNavigation("/")} className="">
         <img src="/Logo-t.svg" alt="Logo" className="w-16 h-auto" />
       </Link>
 
       <div
-        className={`flex gap-12 font-bold ${textColor ? "text-white" : "text-black"}`}
+        className={`flex gap-40 font-bold items-center ${textColor ? "text-white" : "text-black"} transition-all duration-300 ease-out`}
       >
         <div className="flex gap-4">
           {navItems.map((item) => (
@@ -82,11 +88,14 @@ const Navbar = () => {
             />
           ))}
         </div>
-        <NavLink
-          href="/contact"
-          label="Contact"
-          onClick={handleNavigation("/contact")}
-        />
+
+        <div className="bg-none text-accent px-4 py-1.5 rounded-md transition-all duration-300 ease-out">
+          <NavLink
+            href="/contact"
+            label="Contact"
+            onClick={handleNavigation("/contact")}
+          />
+        </div>
       </div>
     </nav>
   );
