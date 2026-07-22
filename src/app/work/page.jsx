@@ -74,7 +74,7 @@ export default function WorkPage() {
             <Link
               key={project.id}
               href={`/work/${project.id}`}
-              className="shrink-0 flex flex-col z-10"
+              className="shrink-0 flex flex-col z-0"
               onMouseEnter={() => setHoveredProject(project.id)}
               onMouseLeave={() => setHoveredProject(null)}
               onTouchStart={() => setHoveredProject(project.id)}
@@ -105,14 +105,14 @@ export default function WorkPage() {
       </div>
 
       {/* overlays sketech and footnote */}
-      <AnimatePresence mode="popLayout">
+      <AnimatePresence mode="sync">
         {hoveredProject && (
           <>
             <motion.div
               key="overlay"
               initial={{
                 opacity: 0,
-                backgroundColor: "#ab5f4e",
+                // backgroundColor: "#ab5f4e",
                 scale: 0.8,
               }}
               animate={{
@@ -127,7 +127,7 @@ export default function WorkPage() {
                 transition: { duration: 0.2 },
               }}
               transition={{ duration: 0.3, ease: "easeOut" }}
-              className="fixed w-72 h-72 z-50 pointer-events-none"
+              className="fixed w-72 h-72 z-50 pointer-events-none max-sm:hidden"
               style={{
                 x: smoothX,
                 y: smoothY,
@@ -157,7 +157,7 @@ export default function WorkPage() {
                 transition: { duration: 0.2 },
               }}
               transition={{ duration: 0.5 }}
-              className="fixed w-full h-fit top-20 left-0 -z-10 justify-start"
+              className="fixed w-full h-fit top-20 left-0 z-10 justify-start"
             >
               <div className="md:max-w-4xl w-fit text-justify font-andale text-wrap flex flex-wrap px-4 md:px-10 font-bold ">
                 <DecryptedText

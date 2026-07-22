@@ -9,7 +9,7 @@ const ProjectDetails = ({ project }) => {
     ? project.description
     : project.description.slice(0, 2);
   return (
-    <div className="lg:min-h-[80vh] h-full flex flex-col lg:flex-row justify-between items-start z-10">
+    <div className="lg:min-h-[80vh] h-full flex flex-col lg:flex-row-reverse justify-between items-start z-10">
       <div className="lg:w-1/2 w-full h-full px-4 md:p-10 flex flex-col text-black justify-between">
         <div className="flex flex-col gap-4 justify-between h-full transition-all duration-300 font-andale">
           <h2 className="text-xl md:text-3xl font-semibold">
