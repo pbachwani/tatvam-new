@@ -82,7 +82,7 @@ const Navbar = () => {
 
       {/* logo */}
       <Link href="/" onClick={handleNavigation("/")} className="">
-        <img src="/logo.svg" alt="Logo" className="w-16 h-auto" />
+        <img src="/logo.svg" alt="Logo" className="w-16 h-auto z-999" />
       </Link>
 
       {/* nav links */}
