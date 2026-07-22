@@ -82,7 +82,7 @@ const Navbar = () => {
 
       {/* logo */}
       <Link href="/" onClick={handleNavigation("/")} className="">
-        <img src="/Logo-t.svg" alt="Logo" className="w-16 h-auto" />
+        <img src="/logo.svg" alt="Logo" className="w-16 h-auto" />
       </Link>
 
       {/* nav links */}
@@ -202,7 +202,7 @@ const Navbar = () => {
                         setDrawerOpen(false);
                         handleNavigation(item.href);
                       }}
-                      className={"text-white text-3xl"}
+                      className={"text-white text-2xl"}
                     />
                   </motion.div>
                 ))}
@@ -225,7 +225,7 @@ const Navbar = () => {
                       // setContactOpen(true);
                     }}
                     // className="hover:cursor-pointer block text-white text-3xl font-light tracking-wide py-3 border-b border-white/10 hover:text-white/60 transition-colors text-left"
-                    className={"text-white text-3xl w-fit"}
+                    className={"text-white text-2xl w-fit"}
                   >
                     Contact
                   </NavLink>

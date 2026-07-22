@@ -46,12 +46,12 @@ const ProjectHero = ({ project }) => {
         <span className="opacity-50  text-sm">(scroll down)</span>
       </div>
       {/* bottom */}
-      <div className="min-h-svh h-fit flex flex-col md:flex-row justify-between py-10 px-4 md:px-10 items-start mt-40 text-white z-10 md:gap-10">
+      <div className="min-h-svh h-fit flex flex-col md:flex-row md:justify-between py-10 px-4 md:px-10 items-start mt-40 text-white z-10 gap-10">
         <div className="flex flex-col gap-4 w-full md:w-1/2">
           <span>Project Brief</span>
           <p className=" md:text-xl text-justify ">{project.brief}</p>
         </div>
-        <div className="w-full md:w-1/2 flex flex-col max-md:flex-row gap-4">
+        <div className="w-full md:w-1/2 flex flex-col gap-4">
           <div className="flex w-full justify-between text-nowrap">
             <h2>{project.name} location</h2>
             <span className="">{project?.area}</span>
