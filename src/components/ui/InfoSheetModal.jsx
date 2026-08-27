@@ -78,7 +78,7 @@ export default function InfoSheetModal({
         aria-modal="true"
         aria-label={eyebrow}
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-7xl min-h-[75vh] max-h-[80vh] overflow-y-auto bg-[#f2f2f0] px-8 py-10 sm:px-12 sm:py-14 "
+        className="relative w-full max-w-7xl min-h-[75vh] max-h-[80vh] overflow-y-auto bg-background px-8 py-10 sm:px-12 sm:py-14 "
         // translate-y-full
       >
         <button

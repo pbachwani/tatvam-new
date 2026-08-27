@@ -4,13 +4,14 @@
 import { useRevealer } from "@/hooks/useRevealer";
 import React from "react";
 import { projects } from "../constants/projects";
+import HomeReveal from "@/components/ui/HomeReveal";
 
 export default function StudioPage() {
   useRevealer();
   return (
     <>
       <div className="revealer"></div>
-      <div className="w-full min-h-svh flex justify-center items-center"></div>
+      <main className="min-h-screen w-full">This is Studio</main>
     </>
   );
 }

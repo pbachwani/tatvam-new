@@ -51,10 +51,10 @@ body {
   width: 100vw;
   height: 100svh;
   transform-origin: center top;
-  /* background-color: #AB5F4E; */
   pointer-events: none;
   z-index: 99999;
 }
+/* background-color: #AB5F4E; */
 
 ::view-transition-old(root),
 ::view-transition-new(root) {

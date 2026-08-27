@@ -27,6 +27,7 @@ export default async function ProjectPage({ params }) {
   return (
     <ProjectReveal>
       <ScrollToTopOnMount />
+
       <ProjectHero project={project} />
 
       {/* <HorizontalGallery images={project.images} /> */}

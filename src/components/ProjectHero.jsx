@@ -16,18 +16,18 @@ const ProjectHero = ({ project }) => {
       />
       {/* top */}
       <div className="z-20 min-h-svh flex flex-col justify-end py-4 md:py-8 px-4 md:px-10 items-end text-white text-3xl sm:text-6xl md:text-8xl  overflow-hidden">
-        <div className="flex justify-between w-full overflow-hidden py-2">
+        <div className="flex justify-between w-full overflow-hidden py-2 h-full items-baseline">
           <motion.p
             initial={{ opacity: 0, y: "100%" }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
               duration: 1,
               delay: 0.7,
-              ease: [0.25, 0.46, 0.45, 0.94],
+              ease: [0.25, 0.46, 0.09, 0.98],
             }}
-            className="h-fit"
+            className="h-full font-deva"
           >
-            तत्वम्
+            {project?.naam || "तत्वम्"}
             {/* {project.name} */}
           </motion.p>
           <motion.h2
@@ -38,7 +38,7 @@ const ProjectHero = ({ project }) => {
               delay: 0.7,
               ease: [0.25, 0.46, 0.09, 0.98],
             }}
-            className="h-fit "
+            className="h-fit uppercase font-andale tracking-wide"
           >
             {project.name}
           </motion.h2>

@@ -3,7 +3,6 @@ import "./globals.css";
 import Navbar from "../components/Navbar";
 import LenisProvider from "../components/LenisProvider";
 import { ViewTransitions } from "next-view-transitions";
-import Footer from "@/components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

@@ -35,7 +35,7 @@ export default function WorkPage() {
 
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+  }, [mouseX, mouseY]);
 
   useEffect(() => {
     const track = trackRef.current;
@@ -68,36 +68,43 @@ export default function WorkPage() {
       <div className="fixed inset-0 overflow-hidden">
         <div
           ref={trackRef}
-          className="absolute bottom-0 flex items-end mb-10 will-change-transform gap-4 md:px-16 px-4"
+          className="absolute bottom-0 flex items-end mb-10 will-change-transform gap-4 md:px-16 px-4 group"
         >
-          {projects.map((project) => (
-            <Link
-              key={project.id}
-              href={`/work/${project.id}`}
-              className="shrink-0 flex flex-col z-0"
-              onMouseEnter={() => setHoveredProject(project.id)}
-              onMouseLeave={() => setHoveredProject(null)}
-              onTouchStart={() => setHoveredProject(project.id)}
-              onTouchEnd={() => setHoveredProject(null)}
-            >
-              <div className="relative lg:w-120 w-60 scale-95 hover:scale-100 transition-transform duration-700 ease-out shadow-2xl overflow-hidden">
-                <img
-                  src={project.cover}
-                  alt={project.name}
-                  className={`object-cover transition-all duration-500 ease-out scale-110 hover:scale-100 hover:brightness-75`}
-                />
-              </div>
+          {projects.map((project) => {
+            const isDimmed =
+              hoveredProject !== null && hoveredProject !== project.id;
 
-              <div className="flex justify-between items-baseline pt-2.5 w-full px-4">
-                <span className="text-xs md:text-xl text-[#1a1a1a] font-deva">
-                  नाम
-                </span>
-                <span className="font-serif text-xs md:text-xl text-[#1a1a1a]">
-                  {project.name}
-                </span>
-              </div>
-            </Link>
-          ))}
+            return (
+              <Link
+                key={project.id}
+                href={`/work/${project.id}`}
+                className={`shrink-0 flex flex-col z-0 transition-all duration-500 ease-out ${
+                  isDimmed ? "blur-[3px]" : "blur-none"
+                }`}
+                onMouseEnter={() => setHoveredProject(project.id)}
+                onMouseLeave={() => setHoveredProject(null)}
+                onTouchStart={() => setHoveredProject(project.id)}
+                onTouchEnd={() => setHoveredProject(null)}
+              >
+                <div className="relative lg:w-120 w-60 scale-95 hover:scale-100 transition-transform duration-700 ease-out shadow-2xl overflow-hidden ">
+                  <img
+                    src={project.cover}
+                    alt={project.name}
+                    className="object-cover transition-all duration-500 ease-out scale-110 hover:scale-100"
+                  />
+                </div>
+
+                <div className="flex justify-between items-baseline pt-2.5 w-full px-4">
+                  <span className="text-xs md:text-xl text-[#1a1a1a] font-deva">
+                    {project?.naam || "नाम"}
+                  </span>
+                  <span className="font-serif text-xs md:text-xl text-[#1a1a1a]">
+                    {project.name}
+                  </span>
+                </div>
+              </Link>
+            );
+          })}
           {/* <div className="w-40 md:w-60 h-80 border flex justify-center items-center mb-6">
             more projects coming soon
           </div> */}
@@ -127,7 +134,7 @@ export default function WorkPage() {
                 transition: { duration: 0.2 },
               }}
               transition={{ duration: 0.3, ease: "easeOut" }}
-              className="fixed w-72 h-72 z-50 pointer-events-none max-sm:hidden"
+              className="fixed md:w-96 md:h-96 h-72 w-72 z-50 pointer-events-none max-sm:hidden"
               style={{
                 x: smoothX,
                 y: smoothY,
@@ -144,31 +151,41 @@ export default function WorkPage() {
               />
             </motion.div>
 
+            {/* <motion.div className="fixed w-screen h-screen z-50 top-10 right-0 pointer-events-none inset-0 bg-red-300/20">
+              <img
+                src={projects.find((p) => p.id === hoveredProject)?.draw}
+                alt=""
+                className="w-[50vh] h-[50vh] object-contain"
+              />
+            </motion.div> */}
+
             <motion.div
               key="text"
               initial={{ opacity: 1, color: "#ab5f4e" }}
               animate={{
                 opacity: 1,
                 color: "#000000",
-                transition: { duration: 1.5 },
+                transition: { duration: 2.5 },
               }}
               exit={{
                 opacity: 0,
                 transition: { duration: 0.2 },
               }}
               transition={{ duration: 0.5 }}
-              className="fixed w-full h-fit top-20 left-0 z-10 justify-start"
+              className="fixed flex w-full h-fit top-20 left-0 z-10 justify-between bg-blue-200/0"
             >
               <div className="md:max-w-4xl w-fit text-justify font-andale text-wrap flex flex-wrap px-4 md:px-10 font-bold ">
                 <DecryptedText
                   maxIterations={10}
                   animateOn="view"
                   text={
-                    projects.find((p) => p.id === hoveredProject)?.foot ||
+                    projects.find((p) => p.id === hoveredProject)?.brief ||
                     "lorem ipsum dolor sit amet consectetur adipisicing elit."
                   }
                 />
               </div>
+
+              {/* <div className="max-md:hidden px-10 w-full">text</div> */}
             </motion.div>
           </>
         )}

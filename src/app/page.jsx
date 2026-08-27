@@ -1,25 +1,48 @@
 "use client";
-import Image from "next/image";
+
 import { useRevealer } from "@/hooks/useRevealer";
-import HomeReveal from "@/components/ui/HomeReveal";
+
 import Footer from "@/components/Footer";
+import Loader from "@/components/Loader";
+import { useState, useSyncExternalStore } from "react";
+import Hero from "@/components/Hero";
+import HomeReveal from "@/components/ui/HomeReveal";
+
+const subscribeToLoaderState = () => () => {};
+const getLoaderState = () => !sessionStorage.getItem("hasShownLoader");
+const getServerLoaderState = () => null;
 
 export default function Home() {
-  useRevealer();
+  const shouldShowLoader = useSyncExternalStore(
+    subscribeToLoaderState,
+    getLoaderState,
+    getServerLoaderState,
+  );
+  const [loaderCompleted, setLoaderCompleted] = useState(false);
+  const loading = shouldShowLoader && !loaderCompleted;
 
-  const hotspots = [
-    { label: "Work", href: "/work", xPercent: 24, yPercent: 55 },
-    { label: "About", href: "/about", xPercent: 55, yPercent: 30 },
-    { label: "Contact", href: "/contact", xPercent: 82, yPercent: 62 },
-  ];
+  useRevealer(loading === false);
+
+  const completeLoading = () => {
+    sessionStorage.setItem("hasShownLoader", "true");
+    setLoaderCompleted(true);
+  };
 
   return (
     <>
+      {loading && <Loader onComplete={completeLoading} />}
       <div className="revealer bg-[#AB5F4E]" />
-      <main className="flex justify-center items-center w-full h-screen">
-        This is home
-      </main>
-      <Footer />
+      <HomeReveal
+        src={"/homepage/line-sketch1.png"}
+        hotspots={[
+          { label: "Work", href: "/work", xPercent: 90, yPercent: 50 },
+          { label: "About", href: "/about", xPercent: 61, yPercent: 32 },
+          { label: "Contact", href: "/contact", xPercent: 25, yPercent: 52 },
+        ]}
+      />
+      {/* <Hero /> */}
+
+      {/* <Footer /> */}
     </>
   );
 }

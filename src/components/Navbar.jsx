@@ -2,50 +2,65 @@
 import Link from "next/link";
 import { useTransitionRouter } from "next-view-transitions";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-import clsx from "clsx";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 
 const NavLink = ({ href, label, onClick, className }) => {
   const [hovered, setHovered] = useState(false);
-
   return (
     <Link
       href={href}
       onClick={onClick}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className={clsx(
-        `relative inline-block transition-all duration-200 ease-out `,
-        `${className}`,
-      )}
+      className={`relative inline-block transition-all duration-200 ease-out ${className}`}
     >
       {label}
       <span
-        className={`absolute left-0 -bottom-0.5 h-0.5 w-full bg-[#AB5F4E] transition-transform duration-300 ease-out ${
+        className={`absolute left-0 -bottom-0.5 h-0.5 w-full bg-white transition-transform duration-300 ease-out ${
           hovered ? "origin-left scale-x-100" : "origin-right scale-x-0"
         }`}
       />
     </Link>
   );
 };
+
+const PAGE_NAMES = {
+  "/": "Home",
+  "/about": "About",
+  "/work": "Work",
+  "/studio": "Studio",
+  "/publications": "Publications",
+  "/contact": "Contact",
+};
+
+const navItems = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
+  { href: "/work", label: "Work" },
+  { href: "/studio", label: "Studio" },
+  { href: "/publications", label: "Publications" },
+  { href: "/contact", label: "Contact" },
+];
+
+const SHAPE = {
+  closed: { width: 220, height: 48 },
+  open: { width: 260, height: 320 },
+};
+
+const SHELL_SPRING = { type: "spring", stiffness: 260, damping: 28 };
+
 const Navbar = () => {
   const router = useTransitionRouter();
   const pathname = usePathname();
-
-  const [show, setShow] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
-  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const pendingPath = useRef(null);
 
   function triggerPageTransition() {
     document.documentElement.animate(
       [
-        {
-          clipPath: "polygon(25% 75%, 75% 75%, 75% 75%, 25% 75%)",
-        },
-        {
-          clipPath: "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
-        },
+        { clipPath: "polygon(25% 75%, 75% 75%, 75% 75%, 25% 75%)" },
+        { clipPath: "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)" },
       ],
       {
         duration: 2000,
@@ -55,187 +70,121 @@ const Navbar = () => {
     );
   }
 
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
   const handleNavigation = (path) => (e) => {
-    if (path === pathname) {
-      e.preventDefault();
-      return;
+    e.preventDefault();
+    if (path === pathname) return;
+    if (open) {
+      pendingPath.current = path;
+      setOpen(false);
+    } else {
+      router.push(path, { onTransitionReady: triggerPageTransition });
     }
-    router.push(path, { onTransitionReady: triggerPageTransition });
   };
 
-  const navItems = [
-    { href: "/about", label: "About" },
-    { href: "/work", label: "Work" },
-    { href: "/studio", label: "Studio" },
-    { href: "/publications", label: "Publications" },
-  ];
+  const pageName = PAGE_NAMES[pathname] ?? "";
+  const homepage = pathname === "/";
+  if (homepage)
+    return (
+      <div className={`fixed top-4 left-1/2 -translate-x-1/2 z-50`}>check</div>
+    );
 
   return (
-    <nav className="w-full h-fit flex justify-between items-center fixed top-0 inset-0 px-8 py-4 z-50 mx-auto group">
-      {/* bg layer */}
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute inset-0 backdrop-blur-[4px] [mask-image:linear-gradient(to_bottom,black_0%,transparent_100%)]" />
-        <div className="absolute inset-0 backdrop-blur-[8px] [mask-image:linear-gradient(to_bottom,black_0%,transparent_75%)]" />
-        <div className="absolute inset-0 backdrop-blur-[16px] [mask-image:linear-gradient(to_bottom,black_0%,transparent_50%)]" />
-        <div className="absolute inset-0 backdrop-blur-[20px] [mask-image:linear-gradient(to_bottom,black_0%,transparent_25%)]" />
-      </div>
-
-      {/* logo */}
-      <Link href="/" onClick={handleNavigation("/")} className="">
-        <img src="/logo.svg" alt="Logo" className="w-16 h-auto z-999" />
-      </Link>
-
-      {/* nav links */}
-      <div
-        className={`flex md:gap-40 font-bold items-center transition-all duration-300 ease-out`}
-        // ${textColor ? "text-white" : "text-black"}
+    <AnimatePresence mode="wait">
+      <motion.div
+        initial={{ opacity: 1, height: 0 }}
+        animate={{ opacity: 1, height: 48 }}
+        transition={{ duration: 1.5, delay: 0.5, ease: "backIn" }}
+        exit={{ opacity: 0, height: 0 }}
+        className={`fixed top-4 left-1/2 -translate-x-1/2 z-50`}
+        // ${homepage && "hidden"}
       >
-        <div className="flex gap-4 max-md:hidden">
-          {navItems.map((item) => (
-            <NavLink
-              key={item.href}
-              href={item.href}
-              label={item.label}
-              onClick={handleNavigation(item.href)}
-            />
-          ))}
-        </div>
-
-        <div className="bg-none text-accent mix-blend-difference px-4 py-1.5 rounded-md transition-all duration-300 ease-out max-md:hidden">
-          <NavLink
-            href="/contact"
-            label="Contact"
-            onClick={handleNavigation("/contact")}
-          />
-        </div>
-        <button
-          className="md:hidden flex flex-col justify-center items-end gap-1.5 w-8 h-8"
-          onClick={() => setDrawerOpen(true)}
-          aria-label="Open menu"
+        <motion.div
+          initial={false}
+          animate={open ? SHAPE.open : SHAPE.closed}
+          transition={SHELL_SPRING}
+          onAnimationComplete={() => {
+            if (!open && pendingPath.current) {
+              const path = pendingPath.current;
+              pendingPath.current = null;
+              router.push(path, { onTransitionReady: triggerPageTransition });
+            }
+          }}
+          className={`relative overflow-hidden backdrop-blur-md bg-black/70 text-white ${open && "shadow-lg"} shadow-black/30 w-lg`}
         >
-          <span
-            className={clsx(
-              "block h-px bg-accent transition-all duration-500 ease-out",
-              drawerOpen ? "w-8" : "w-6",
-            )}
-          />
-          <span
-            className={clsx(
-              "block h-px bg-accent transition-all duration-500 ease-out",
-              drawerOpen ? "w-8" : "w-4",
-            )}
-          />
-          <span
-            className={clsx(
-              "block h-px bg-accent transition-all duration-500 ease-out",
-              drawerOpen ? "w-8" : "w-2",
-            )}
-          />
-        </button>
-      </div>
+          {/* Logo — fixed position, always visible, never fades */}
+          <Link
+            href="/"
+            onClick={handleNavigation("/")}
+            className="absolute left-4 top-4 z-10"
+          >
+            <img src="/logo-white.svg" alt="Logo" className="w-10 h-auto" />
+          </Link>
 
-      {/* mobile drawer */}
-      <AnimatePresence>
-        {drawerOpen && (
-          <>
-            <motion.div
-              key="mobile-backdrop"
-              className="fixed inset-0 z-50 bg-black/40"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              onClick={() => setDrawerOpen(false)}
-            />
+          {/* Page name — fades out when open */}
+          <motion.span
+            className="absolute left-1/2 -translate-x-1/2 top-4 text-sm font-bold whitespace-nowrap cursor-default"
+            animate={{ opacity: open ? 0 : 1 }}
+            transition={{ duration: 0.2, delay: open ? 0 : 0.25 }}
+            style={{ pointerEvents: open ? "none" : "auto" }}
+          >
+            {pageName}
+          </motion.span>
 
-            <motion.div
-              key="mobile-drawer"
-              className="fixed top-0 right-0 h-full w-3/4 z-50 bg-black flex flex-col px-8 py-10"
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ duration: 0.45, ease: [0.76, 0, 0.24, 1] }}
-            >
-              {/* close button */}
-              <button
-                className="self-end mb-14 text-white/40 hover:text-white transition-colors"
-                onClick={() => setDrawerOpen(false)}
-                aria-label="Close menu"
+          {/* Nav links — fades in when open */}
+          <motion.nav
+            className="absolute inset-0 flex flex-col gap-3 pt-16 pl-5 pr-14 pb-6 bg-accent "
+            animate={{ opacity: open ? 1 : 0 }}
+            transition={{ duration: 0.2, delay: open ? 0.25 : 0 }}
+            style={{ pointerEvents: open ? "auto" : "none" }}
+          >
+            {navItems.map((item, i) => (
+              <motion.div
+                key={item.href}
+                animate={{ opacity: open ? 1 : 0, x: open ? 0 : 12 }}
+                transition={{
+                  duration: 0.25,
+                  delay: open ? 0.3 + i * 0.05 : 0,
+                }}
               >
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                  <line
-                    x1="2"
-                    y1="2"
-                    x2="18"
-                    y2="18"
-                    stroke="currentColor"
-                    strokeWidth="1.2"
-                  />
-                  <line
-                    x1="18"
-                    y1="2"
-                    x2="2"
-                    y2="18"
-                    stroke="currentColor"
-                    strokeWidth="1.2"
-                  />
-                </svg>
-              </button>
+                <NavLink
+                  href={item.href}
+                  label={item.label}
+                  onClick={handleNavigation(item.href)}
+                  className="text-lg"
+                />
+              </motion.div>
+            ))}
+          </motion.nav>
 
-              <nav className="flex flex-col gap-6 font-andale">
-                {navItems.map((item, i) => (
-                  <motion.div
-                    key={item.href}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{
-                      duration: 0.35,
-                      delay: 0.15 + i * 0.07,
-                      ease: [0.33, 1, 0.68, 1],
-                    }}
-                  >
-                    <NavLink
-                      key={item.href}
-                      href={item.href}
-                      label={item.label}
-                      onClick={() => {
-                        setDrawerOpen(false);
-                        handleNavigation(item.href);
-                      }}
-                      className={"text-white text-2xl"}
-                    />
-                  </motion.div>
-                ))}
-
-                <motion.div
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{
-                    duration: 0.35,
-                    delay: 0.15 + 4 * 0.07,
-                    ease: [0.33, 1, 0.68, 1],
-                  }}
-                >
-                  <NavLink
-                    href={"/contact"}
-                    label={"Contact"}
-                    onClick={() => {
-                      setDrawerOpen(false);
-                      handleNavigation("/contact");
-                      // setContactOpen(true);
-                    }}
-                    // className="hover:cursor-pointer block text-white text-3xl font-light tracking-wide py-3 border-b border-white/10 hover:text-white/60 transition-colors text-left"
-                    className={"text-white text-2xl w-fit"}
-                  >
-                    Contact
-                  </NavLink>
-                </motion.div>
-              </nav>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
-    </nav>
+          {/* Toggle — fixed position, only the bars morph */}
+          <button
+            onClick={() => setOpen((v) => !v)}
+            aria-label={open ? "Close menu" : "Open menu"}
+            className="absolute top-4 right-4 w-5 h-5"
+          >
+            <motion.span
+              className="absolute left-0 top-1/2 h-px w-5 bg-current"
+              animate={{ y: open ? 0 : -6, rotate: open ? 45 : 0 }}
+              transition={{ duration: 0.3 }}
+            />
+            <motion.span
+              className="absolute left-0 top-1/2 h-px w-5 bg-current"
+              animate={{ opacity: open ? 0 : 1 }}
+              transition={{ duration: 0.2 }}
+            />
+            <motion.span
+              className="absolute left-0 top-1/2 h-px w-5 bg-current"
+              animate={{ y: open ? 0 : 6, rotate: open ? -45 : 0 }}
+              transition={{ duration: 0.3 }}
+            />
+          </button>
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>
   );
 };
 
