@@ -85,8 +85,7 @@ export default function StudioPage() {
             Culture
           </div>
           <div className="h-screen w-full relative bg-black">
-            <Image
-              fill
+            <img
               src="/studio/hero.jpg"
               alt="Studio Hero"
               className="absolute h-full w-full object-cover blur-[2px] brightness-60"

@@ -172,7 +172,7 @@ export default function WorkPage() {
                 transition: { duration: 0.2 },
               }}
               transition={{ duration: 0.5 }}
-              className="fixed flex w-full h-fit top-20 left-0 z-10 justify-between bg-blue-200/0"
+              className="fixed flex w-full h-fit top-20 left-0 z-10 justify-between bg-blue-200/0 pointer-events-none"
             >
               <div className="md:max-w-4xl w-fit text-justify font-andale text-wrap flex flex-wrap px-4 md:px-10 font-bold ">
                 <DecryptedText
