@@ -93,15 +93,15 @@ const Navbar = () => {
     );
 
   return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        initial={{ opacity: 1, height: 0 }}
-        animate={{ opacity: 1, height: 48 }}
-        transition={{ duration: 1.5, delay: 0.5, ease: "backIn" }}
-        exit={{ opacity: 0, height: 0 }}
-        className={`fixed top-4 left-1/2 -translate-x-1/2 z-50`}
-        // ${homepage && "hidden"}
-      >
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1.5, delay: 0.5, ease: "backIn" }}
+      exit={{ opacity: 0 }}
+      className={`fixed top-4 left-1/2 -translate-x-1/2 z-50`}
+      // ${homepage && "hidden"}
+    >
+      <AnimatePresence>
         <motion.div
           initial={false}
           animate={open ? SHAPE.open : SHAPE.closed}
@@ -183,8 +183,8 @@ const Navbar = () => {
             />
           </button>
         </motion.div>
-      </motion.div>
-    </AnimatePresence>
+      </AnimatePresence>
+    </motion.div>
   );
 };
 
